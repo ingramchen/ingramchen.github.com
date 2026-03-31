@@ -4,25 +4,90 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ingram Chen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Instrument+Serif&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;background:#0f172a;color:#e2e8f0;min-height:100vh;display:flex;align-items:center;justify-content:center}
-.container{text-align:center;padding:40px}
-h1{font-size:1.8rem;font-weight:600;margin-bottom:8px}
-.sub{color:#94a3b8;font-size:0.95rem;margin-bottom:32px}
-.links{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
-a{color:#e2e8f0;text-decoration:none;background:#1e293b;border:1px solid #334155;border-radius:8px;padding:12px 24px;font-size:0.9rem;transition:all .2s}
-a:hover{border-color:#60a5fa;background:#1e3a5f}
+:root{
+  --bg:#0a0a0a;--fg:#e8e4de;--dim:#6b6560;--accent:#c4956a;
+  --mono:'DM Mono',monospace;--serif:'Instrument Serif',Georgia,serif;
+}
+body{font-family:var(--mono);background:var(--bg);color:var(--fg);min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden}
+
+/* Grain overlay */
+body::before{content:'';position:fixed;inset:0;opacity:.035;pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:128px 128px;z-index:9999}
+
+/* Corner accents */
+body::after{content:'';position:fixed;top:24px;left:24px;right:24px;bottom:24px;
+  border:1px solid rgba(196,149,106,0.08);border-radius:2px;pointer-events:none}
+
+.scene{position:relative;text-align:center;padding:48px 32px}
+
+/* Decorative line */
+.rule{width:40px;height:1px;background:var(--accent);margin:0 auto 28px;opacity:.6;
+  animation:expandRule 1.2s ease-out 0.3s both}
+@keyframes expandRule{from{width:0;opacity:0}to{width:40px;opacity:.6}}
+
+.name{font-family:var(--serif);font-size:clamp(2.8rem,8vw,4.5rem);font-weight:400;
+  letter-spacing:-0.02em;line-height:1;margin-bottom:6px;
+  animation:fadeUp 0.8s ease-out both}
+
+.handle{font-size:0.75rem;font-weight:300;color:var(--dim);letter-spacing:0.15em;
+  text-transform:uppercase;margin-bottom:40px;
+  animation:fadeUp 0.8s ease-out 0.15s both}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+
+.nav{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;
+  animation:fadeUp 0.8s ease-out 0.35s both}
+
+.nav a{
+  position:relative;color:var(--dim);text-decoration:none;font-size:0.78rem;
+  font-weight:400;letter-spacing:0.08em;text-transform:uppercase;
+  padding:10px 20px;transition:color .4s,letter-spacing .4s;
+}
+.nav a::before{
+  content:'';position:absolute;bottom:6px;left:20px;right:20px;height:1px;
+  background:var(--accent);transform:scaleX(0);transform-origin:right;
+  transition:transform .4s cubic-bezier(.4,0,.2,1);
+}
+.nav a:hover{color:var(--fg);letter-spacing:0.12em}
+.nav a:hover::before{transform:scaleX(1);transform-origin:left}
+
+.nav .sep{color:rgba(196,149,106,0.2);font-size:0.7rem;display:flex;align-items:center;
+  user-select:none}
+
+/* Floating geometric */
+.geo{position:fixed;pointer-events:none;opacity:.04}
+.geo-1{top:15%;left:8%;width:120px;height:120px;border:1px solid var(--accent);
+  transform:rotate(45deg);animation:drift 20s ease-in-out infinite}
+.geo-2{bottom:12%;right:10%;width:80px;height:80px;border-radius:50%;
+  border:1px solid var(--accent);animation:drift 16s ease-in-out 2s infinite reverse}
+.geo-3{top:60%;left:75%;width:1px;height:100px;background:var(--accent);
+  transform:rotate(20deg);animation:drift 24s ease-in-out 4s infinite}
+@keyframes drift{0%,100%{transform:translateY(0) rotate(45deg)}50%{transform:translateY(-12px) rotate(45deg)}}
 </style>
 </head>
 <body>
-<div class="container">
-  <h1>Ingram Chen</h1>
-  <div class="sub">ingramchen</div>
-  <div class="links">
-    <a href="https://github.com/ingramchen">GitHub</a>
+
+<div class="geo geo-1"></div>
+<div class="geo geo-2"></div>
+<div class="geo geo-3"></div>
+
+<div class="scene">
+  <div class="rule"></div>
+  <h1 class="name">Ingram Chen</h1>
+  <div class="handle">ingramchen</div>
+  <nav class="nav">
+    <a href="https://ingramchen.io">Blog</a>
+    <span class="sep">/</span>
     <a href="/play/">Play</a>
-  </div>
+    <span class="sep">/</span>
+    <a href="https://github.com/ingramchen">GitHub</a>
+  </nav>
 </div>
+
 </body>
 </html>
